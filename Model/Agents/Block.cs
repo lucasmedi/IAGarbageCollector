@@ -1,15 +1,16 @@
+using Model.Interfaces;
 using Model.Utils;
 
 namespace Model.Agents
 {
-    public class Block
+    public class Block : IBlock
     {
-        private Position position;
+        private IPosition position;
 
-        private Agent agent;
-        private Trash trash;
+        private IAgent agent;
+        private ITrash trash;
 
-        public Block(Position position)
+        public Block(IPosition position)
         {
             this.position = position;
             this.setAgent(null);
@@ -23,14 +24,14 @@ namespace Model.Agents
             this.setTrash(null);
         }
 
-        public Block(Position position, Agent agent, Trash trash)
+        public Block(IPosition position, IAgent agent, ITrash trash)
         {
             this.position = position;
             this.setAgent(agent);
             this.setTrash(trash);
         }
 
-        public Block(int x, int y, Agent agent, Trash trash)
+        public Block(int x, int y, IAgent agent, ITrash trash)
         {
             this.position = new Position(x, y);
             this.setAgent(agent);
@@ -52,24 +53,19 @@ namespace Model.Agents
             return null;
         }
 
-        public Trash collectTrash()
+        public ITrash collectTrash()
         {
             var t = this.trash;
             this.trash = null;
             return t;
         }
 
-        public override string ToString()
-        {
-            return "(" + position.getX() + ", " + position.getY() + ")";
-        }
-
-        public Position getPosition()
+        public IPosition getPosition()
         {
             return position;
         }
 
-        public void setPosition(Position position)
+        public void setPosition(IPosition position)
         {
             this.position = position;
         }
@@ -79,12 +75,12 @@ namespace Model.Agents
             return (this.agent != null);
         }
 
-        public Agent getAgent()
+        public IAgent getAgent()
         {
             return agent;
         }
 
-        public void setAgent(Agent agent)
+        public void setAgent(IAgent agent)
         {
             this.agent = agent;
         }
@@ -94,14 +90,19 @@ namespace Model.Agents
             return (this.trash != null);
         }
 
-        public Trash getTrash()
+        public ITrash getTrash()
         {
             return trash;
         }
 
-        public void setTrash(Trash trash)
+        public void setTrash(ITrash trash)
         {
             this.trash = trash;
+        }
+
+        public override string ToString()
+        {
+            return "(" + position.getX() + ", " + position.getY() + ")";
         }
     }
 }

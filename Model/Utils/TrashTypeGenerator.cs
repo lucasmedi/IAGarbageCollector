@@ -4,15 +4,16 @@ namespace Model.Utils
 {
     public class TrashTypeGenerator
     {
+        private static Random rnd;
+
         private static int index = 0;
         private static int trashTypes = 4;
 
         public static TrashType getRandomTrashType()
         {
-            var rnd = new Random(trashTypes);
-
-            int index = (int)(rnd.Next() * trashTypes);
-            return (TrashType)trashTypes;
+            rnd = rnd ?? new Random();
+            int index = (int)rnd.Next(trashTypes);
+            return (TrashType)index;
         }
 
         public static TrashType next()
@@ -26,7 +27,7 @@ namespace Model.Utils
                 index = 0;
             }
 
-            return (TrashType)trashTypes;
+            return (TrashType)index;
         }
 
         public static string getTrashCanIcon(TrashType trashType)
@@ -34,13 +35,13 @@ namespace Model.Utils
             switch (trashType)
             {
                 case TrashType.GLASS:
-                    return "img/trashCanEmptyGreen.png";
+                    return "Content/Images/trashCanEmptyGreen.png";
                 case TrashType.PAPER:
-                    return "img/trashCanEmptyBlue.png";
+                    return "Content/Images/trashCanEmptyBlue.png";
                 case TrashType.METAL:
-                    return "img/trashCanEmptyYellow.png";
+                    return "Content/Images/trashCanEmptyYellow.png";
                 case TrashType.PLASTIC:
-                    return "img/trashCanEmptyRed.png";
+                    return "Content/Images/trashCanEmptyRed.png";
                 default:
                     break;
             }
@@ -53,13 +54,13 @@ namespace Model.Utils
             switch (trashType)
             {
                 case TrashType.GLASS:
-                    return "img/trashGreen.png";
+                    return "Content/Images/trashGreen.png";
                 case TrashType.PAPER:
-                    return "img/trashBlue.png";
+                    return "Content/Images/trashBlue.png";
                 case TrashType.METAL:
-                    return "img/trashYellow.png";
+                    return "Content/Images/trashYellow.png";
                 case TrashType.PLASTIC:
-                    return "img/trashRed.png";
+                    return "Content/Images/trashRed.png";
                 default:
                     break;
             }

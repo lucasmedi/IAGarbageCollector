@@ -39,6 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IAgent.cs" />
+    <Compile Include="Interfaces\IBlock.cs" />
+    <Compile Include="Interfaces\IMatrix.cs" />
+    <Compile Include="Interfaces\IModel.cs" />
+    <Compile Include="Interfaces\IPosition.cs" />
+    <Compile Include="Interfaces\ITrash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,8 +54,8 @@
     <Compile Include="Agents\Recharger.cs" />
     <Compile Include="Agents\Trash.cs" />
     <Compile Include="Agents\TrashCan.cs" />
-    <Compile Include="Controller\Main.cs" />
-    <Compile Include="Controller\Matrix.cs" />
+    <Compile Include="Controller\Creator.cs" />
+    <Compile Include="Controller\World.cs" />
     <Compile Include="Utils\CollectorStatus.cs" />
     <Compile Include="Utils\Direction.cs" />
     <Compile Include="Utils\Position.cs" />

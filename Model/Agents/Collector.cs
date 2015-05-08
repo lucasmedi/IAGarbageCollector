@@ -1,30 +1,31 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Model.Interfaces;
 using Model.Utils;
 
 namespace Model.Agents
 {
     public class Collector : Agent
     {
-        private static string icon = "img/collector.png";
+        private static string icon = "Content/Images/collector.png";
 
-        /* KNOWLEDGE ABOUT THE WORLD */
-        private List<Position> glassTrashCans;
-        private List<Position> metalTrashCans;
-        private List<Position> paperTrashCans;
-        private List<Position> plasticTrashCans;
-        private List<Position> rechargers;
+        /* KNOWLEDGE About THE WORLD */
+        private List<IPosition> glassTrashCans;
+        private List<IPosition> metalTrashCans;
+        private List<IPosition> paperTrashCans;
+        private List<IPosition> plasticTrashCans;
+        private List<IPosition> rechargers;
 
-        private List<Block> neighbors;
+        private List<IBlock> neighbors;
 
-        /* KNOWLEDGE ABOUT ITSELF */
-        private List<Trash> glassTrash;
-        private List<Trash> metalTrash;
-        private List<Trash> paperTrash;
-        private List<Trash> plasticTrash;
+        /* KNOWLEDGE About ITSELF */
+        private List<ITrash> glassTrash;
+        private List<ITrash> metalTrash;
+        private List<ITrash> paperTrash;
+        private List<ITrash> plasticTrash;
 
-        private Block currentBlock;
+        private IBlock currentBlock;
 
         private int maxBatteryCapacity;
         private int maxTrashCapacity;
@@ -37,32 +38,32 @@ namespace Model.Agents
         private Direction direction;
 
         /* CONTROL VARIABLES */
-        private Position objective;
+        private IPosition objective;
         private TrashType trashType;
-        private List<Block> possibleBlocks;
-        private List<Block> excludedBlocks;
+        private List<IBlock> possibleBlocks;
+        private List<IBlock> excludedBlocks;
 
         /* CONSTRUCTOR */
-        public Collector(string name, int batteryCapacity, int trashCapacity, Block current)
+        public Collector(string name, int batteryCapacity, int trashCapacity, IBlock current)
             : base(name, Collector.icon)
         {
             // current position
             this.currentBlock = current;
 
             // rechargers
-            rechargers = new List<Position>();
+            rechargers = new List<IPosition>();
 
             // trash cans
-            glassTrashCans = new List<Position>();
-            metalTrashCans = new List<Position>();
-            paperTrashCans = new List<Position>();
-            plasticTrashCans = new List<Position>();
+            glassTrashCans = new List<IPosition>();
+            metalTrashCans = new List<IPosition>();
+            paperTrashCans = new List<IPosition>();
+            plasticTrashCans = new List<IPosition>();
 
             // garbage
-            glassTrash = new List<Trash>();
-            metalTrash = new List<Trash>();
-            paperTrash = new List<Trash>();
-            plasticTrash = new List<Trash>();
+            glassTrash = new List<ITrash>();
+            metalTrash = new List<ITrash>();
+            paperTrash = new List<ITrash>();
+            plasticTrash = new List<ITrash>();
 
             // inner status
             maxBatteryCapacity = batteryCapacity;
@@ -138,7 +139,7 @@ namespace Model.Agents
          * Execute action
          * @param neighbors
          */
-        public Block run(List<Block> neighbors)
+        public IBlock run(List<IBlock> neighbors)
         {
             if ((neighbors == null) || (neighbors.Count == 0))
             {
@@ -159,7 +160,7 @@ namespace Model.Agents
 
             plan();
 
-            Block moveTo = act();
+            IBlock moveTo = act();
 
             if (moveTo != null)
             {
@@ -257,7 +258,7 @@ namespace Model.Agents
         /**
          * Act according to what was planned
          */
-        private Block act()
+        private IBlock act()
         {
             if (currentBlock.getPosition().Equals(objective))
             {
@@ -270,7 +271,7 @@ namespace Model.Agents
 
             if (status == CollectorStatus.WALKINGRECHARGER || status == CollectorStatus.RECHARGING)
             {
-                Block aux = null;
+                IBlock aux = null;
                 foreach (var block in excludedBlocks)
                 {
                     if (block.getPosition().Equals(objective))
@@ -289,7 +290,7 @@ namespace Model.Agents
 
             if (status == CollectorStatus.WALKINGTRASHCAN || status == CollectorStatus.EMPTYING)
             {
-                Block aux = null;
+                IBlock aux = null;
                 foreach (var block in excludedBlocks)
                 {
                     if (block.getPosition().Equals(objective))
@@ -306,7 +307,7 @@ namespace Model.Agents
                 }
             }
 
-            var positions = new List<Position>();
+            var positions = new List<IPosition>();
             foreach (var block in possibleBlocks)
             {
                 if (block.getPosition().Equals(objective))
@@ -317,7 +318,7 @@ namespace Model.Agents
                 positions.Add(block.getPosition());
             }
 
-            var future = new List<Position>();
+            var future = new List<IPosition>();
             foreach (var block in neighbors)
             {
                 if (!possibleBlocks.Contains(block) && !block.hasAgent())
@@ -339,7 +340,7 @@ namespace Model.Agents
         }
 
         // REFAZER A LOGICA DE TIRAR O LIXO DO COLETOR PARA LIXEIRA
-        private void emptying(Block block)
+        private void emptying(IBlock block)
         {
             if (!(block != null && block.hasAgent() && block.getAgent() is TrashCan))
             {
@@ -412,7 +413,7 @@ namespace Model.Agents
             status = CollectorStatus.EMPTYING;
         }
 
-        private void recharge(Block block)
+        private void recharge(IBlock block)
         {
             if (!(block != null && block.hasAgent() && block.getAgent() is Recharger))
             {
@@ -475,7 +476,7 @@ namespace Model.Agents
             status = CollectorStatus.WANDER;
         }
 
-        private Block wander()
+        private IBlock wander()
         {
             if (possibleBlocks.Count == 0)
             {
@@ -506,9 +507,9 @@ namespace Model.Agents
             return null;
         }
 
-        private Block WanderDownRight()
+        private IBlock WanderDownRight()
         {
-            Block block = null;
+            IBlock block = null;
 
             if (direction == Direction.NONE || direction == Direction.RIGHT)
             {
@@ -576,9 +577,9 @@ namespace Model.Agents
             return null;
         }
 
-        private Block WanderUpLeft()
+        private IBlock WanderUpLeft()
         {
-            Block block = null;
+            IBlock block = null;
 
             if (direction == Direction.NONE || direction == Direction.LEFT)
             {
@@ -686,7 +687,7 @@ namespace Model.Agents
             return (lower <= 1);
         }
 
-        private Block goRight()
+        private IBlock goRight()
         {
             foreach (var possibleBlock in possibleBlocks)
             {
@@ -701,7 +702,7 @@ namespace Model.Agents
             return null;
         }
 
-        private Block goDown()
+        private IBlock goDown()
         {
             foreach (var possibleBlock in possibleBlocks)
             {
@@ -716,7 +717,7 @@ namespace Model.Agents
             return null;
         }
 
-        private Block goLeft()
+        private IBlock goLeft()
         {
             foreach (var possibleBlock in possibleBlocks)
             {
@@ -731,7 +732,7 @@ namespace Model.Agents
             return null;
         }
 
-        private Block goUp()
+        private IBlock goUp()
         {
             foreach (var possibleBlock in possibleBlocks)
             {
@@ -746,7 +747,7 @@ namespace Model.Agents
             return null;
         }
 
-        private Block goDiagonal()
+        private IBlock goDiagonal()
         {
             foreach (var possibleBlock in possibleBlocks)
             {
@@ -777,10 +778,10 @@ namespace Model.Agents
             return null;
         }
 
-        private List<Block> getPossibleBlocks()
+        private List<IBlock> getPossibleBlocks()
         {
-            this.possibleBlocks = new List<Block>();
-            this.excludedBlocks = new List<Block>();
+            this.possibleBlocks = new List<IBlock>();
+            this.excludedBlocks = new List<IBlock>();
 
             foreach (var block in neighbors)
             {
@@ -872,9 +873,9 @@ namespace Model.Agents
             return false;
         }
 
-        private List<Position> getTrashFound()
+        private List<IPosition> getTrashFound()
         {
-            var trashFound = new List<Position>();
+            var trashFound = new List<IPosition>();
 
             foreach (var block in neighbors)
             {
@@ -887,7 +888,7 @@ namespace Model.Agents
             return trashFound;
         }
 
-        private Position getNearestTrashCan()
+        private IPosition getNearestTrashCan()
         {
             switch (trashType)
             {
@@ -907,12 +908,12 @@ namespace Model.Agents
             return null;
         }
 
-        public Position getPosition()
+        public IPosition getPosition()
         {
             return currentBlock.getPosition();
         }
 
-        public void setBlock(Block block)
+        public void setBlock(IBlock block)
         {
             this.currentBlock = block;
         }

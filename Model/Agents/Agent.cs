@@ -1,7 +1,8 @@
+using Model.Interfaces;
 
 namespace Model.Agents
 {
-    public abstract class Agent
+    public abstract class Agent : IAgent
     {
         private string name;
         private string icon;

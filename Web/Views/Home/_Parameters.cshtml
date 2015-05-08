@@ -1,0 +1,39 @@
+﻿
+@model Web.Models.ModelViewModel
+
+<form id="form">
+    <div class="fields">
+        <div>
+            @Html.LabelFor(o => o.amountCollectors)
+            @Html.TextBoxFor(o => o.amountCollectors)
+
+            <br />
+            @Html.LabelFor(o => o.amountTrashCans)
+            @Html.TextBoxFor(o => o.amountTrashCans)
+
+            <br />
+            @Html.LabelFor(o => o.amountRechargers)
+            @Html.TextBoxFor(o => o.amountRechargers)
+        </div>
+
+        <br />
+        <div>
+            @Html.LabelFor(o => o.maxTrashCanCapacity)
+            @Html.TextBoxFor(o => o.maxTrashCanCapacity)
+
+            <br />
+            @Html.LabelFor(o => o.maxTrashCapacity)
+            @Html.TextBoxFor(o => o.maxTrashCapacity)
+
+            <br />
+            @Html.LabelFor(o => o.maxBatteryCapacity)
+            @Html.TextBoxFor(o => o.maxBatteryCapacity)
+        </div>
+
+        <br />
+        <div>
+            <label for="interval">Time interval (ms)</label>
+            <input type="text" name="interval" id="interval" value="1000" />
+        </div>
+    </div>
+</form>

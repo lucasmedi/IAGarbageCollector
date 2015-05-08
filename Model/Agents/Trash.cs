@@ -1,8 +1,9 @@
+using Model.Interfaces;
 using Model.Utils;
 
 namespace Model.Agents
 {
-    public class Trash
+    public class Trash : ITrash
     {
         private string icon;
 

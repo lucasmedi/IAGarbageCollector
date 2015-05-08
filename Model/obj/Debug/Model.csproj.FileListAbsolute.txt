@@ -2,3 +2,7 @@ C:\Users\Lucas\Desktop\Programação\C#\IAGarbageCollector\Model\bin\Debug\Model
 C:\Users\Lucas\Desktop\Programação\C#\IAGarbageCollector\Model\bin\Debug\Model.pdb
 C:\Users\Lucas\Desktop\Programação\C#\IAGarbageCollector\Model\obj\Debug\Model.dll
 C:\Users\Lucas\Desktop\Programação\C#\IAGarbageCollector\Model\obj\Debug\Model.pdb
+C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\Model\bin\Debug\Model.dll
+C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\Model\bin\Debug\Model.pdb
+C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\Model\obj\Debug\Model.dll
+C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\Model\obj\Debug\Model.pdb

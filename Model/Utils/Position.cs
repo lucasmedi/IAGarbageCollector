@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Model.Interfaces;
 
 namespace Model.Utils
 {
-    public class Position
+    public class Position : IPosition
     {
+        private static Random rnd;
+
         private int x;
         private int y;
 
@@ -14,10 +17,10 @@ namespace Model.Utils
             this.y = y;
         }
 
-        public int hashCode()
+        public override int GetHashCode()
         {
-            int hashX = (x != null ? x.GetHashCode() : 0);
-            int hashY = (y != null ? y.GetHashCode() : 0);
+            int hashX = x.GetHashCode();
+            int hashY = y.GetHashCode();
 
             return (hashX + hashY) * hashY + hashX;
         }
@@ -31,20 +34,22 @@ namespace Model.Utils
 
             var otherPair = (Position)obj;
 
-            return ((this.x == otherPair.x || (this.x != null && otherPair.x != null && this.x.Equals(otherPair.x)))
-                && (this.y == otherPair.y || (this.y != null && otherPair.y != null && this.y.Equals(otherPair.y))));
+            return (
+                (this.x == otherPair.x || this.x.Equals(otherPair.x))
+                && (this.y == otherPair.y || this.y.Equals(otherPair.y))
+            );
         }
 
         public static Position getRandomPosition(int seed)
         {
-            var rnd = new Random(seed);
-            int x = (int)(rnd.Next() * seed);
-            int y = (int)(rnd.Next() * seed);
+            rnd = rnd ?? new Random();
+            int x = (int)rnd.Next(seed);
+            int y = (int)rnd.Next(seed);
 
             return new Position(x, y);
         }
 
-        public static double getDiagonalDistance(Position origin, Position destiny)
+        public static double getDiagonalDistance(IPosition origin, IPosition destiny)
         {
             double res = 0;
 
@@ -60,7 +65,7 @@ namespace Model.Utils
             return Math.Max(Math.Abs(origin.getX() - destiny.getX()), Math.Abs(origin.getY() - destiny.getY()));
         }
 
-        public static int getHeuristic(Position origin, Position destiny, List<Position> future)
+        public static int getHeuristic(IPosition origin, IPosition destiny, List<IPosition> future)
         {
             int xDiff = destiny.getX() - origin.getX();
             int yDiff = destiny.getY() - origin.getY();
@@ -70,9 +75,9 @@ namespace Model.Utils
             return (future.Contains(possible) ? 0 : 1);
         }
 
-        public static Position getPseudoNearest(Position origin, List<Position> destinies)
+        public static IPosition getPseudoNearest(IPosition origin, List<IPosition> destinies)
         {
-            Position res = null;
+            IPosition res = null;
             var distance = Double.MaxValue;
 
             foreach (var position in destinies)
@@ -88,9 +93,9 @@ namespace Model.Utils
             return res;
         }
 
-        public static Position getPseudoNearest(Position current, Position origin, List<Position> destinies, List<Position> future)
+        public static IPosition getPseudoNearest(IPosition current, IPosition origin, List<IPosition> destinies, List<IPosition> future)
         {
-            Position res = null;
+            IPosition res = null;
             var distance = Double.MaxValue;
 
             double f = 0;

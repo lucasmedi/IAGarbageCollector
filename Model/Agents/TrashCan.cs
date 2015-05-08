@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Model.Interfaces;
 using Model.Utils;
 
 namespace Model.Agents
@@ -8,7 +9,7 @@ namespace Model.Agents
         private int capacity;
 
         private TrashType color;
-        private List<Trash> content;
+        private List<ITrash> content;
 
         public TrashCan(string name, string icon, int capacity, TrashType color)
             : base(name, icon)
@@ -16,10 +17,10 @@ namespace Model.Agents
             this.capacity = capacity;
             this.color = color;
 
-            this.content = new List<Trash>();
+            this.content = new List<ITrash>();
         }
 
-        public bool addTrash(Trash t)
+        public bool addTrash(ITrash t)
         {
             if (isFull())
             {
@@ -36,7 +37,7 @@ namespace Model.Agents
             bool isFull = (capacity == content.Count);
             if (isFull)
             {
-                setIcon("img/trashCanFull.png");
+                setIcon("Content/Images/trashCanFull.png");
             }
 
             return isFull;
