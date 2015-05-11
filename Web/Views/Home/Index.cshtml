@@ -5,10 +5,12 @@
 @model Web.Models.CreatorViewModel
 
 <div class="jumbotron">
-    <input type="button" id="createBtn" onclick="create();" value="New World!" />
-    <input type="button" id="nextBlockBtn" onclick="nextBlock();" style="display: none;" value="Executar" />
-    <input type="button" id="stopIntervalBtn" onclick="stopInterval();" style="display: none;" value="Parar" />
-    <input type="button" id="nextBtn" onclick="next();" style="display: none;" value="Próximo passo..." />
+    <input type="button" id="btnCreateWorld" value="New World!" />
+
+    <input type="button" id="btnNextStep" value="Next step..." />
+
+    <input type="button" id="btnStart" value="Start" />
+    <input type="button" id="btnStop" value="Stop" style="display: none;" />
 </div>
 
 <div>
@@ -16,39 +18,12 @@
 </div>
 
 <br />
-<table id="tableAgents">
-    @for (int i = 0; i < Model.Creator.World.Matrix.GetLength(0); i++)
-    {
-        <tr class="row">
-            @for (int j = 0; j < Model.Creator.World.Matrix.GetLength(1); j++)
-            {
-                <td class="">
-                    @{
-                        var item = Model.Creator.World.Matrix[i,j];
-                    }
-                    <img src="@item.getIcon()" class="icon" alt="@item.ToString()" />
-                </td>
-            }
-        </tr>
-    }
-</table>
-
-@*
-    <table id="agents">
-        <ui:repeat value="#{main.matrix.matrix}" var="firstLevel">
-            <tr>
-                <ui:repeat value="#{firstLevel}" var="secondLevel" rendered="#{!empty firstLevel}">
-                    <td>
-                        <img src="#{secondLevel.icon}" class="icon">#{secondLevel}</img>
-                    </td>
-                </ui:repeat>
-            </tr>
-        </ui:repeat>
-    </table>
-*@
+<div id="world">
+    @Html.Partial("_World", Model)
+</div>
 
 @section scripts
 {
     @*<link rel="stylesheet" type="text/css" href="css/style.css" />*@
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="Scripts/script.js"></script>
 }

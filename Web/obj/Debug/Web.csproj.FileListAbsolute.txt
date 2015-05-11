@@ -32,3 +32,37 @@ C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\
 C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
 C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\Web\obj\Debug\Web.dll
 C:\Users\lucas-cunha\Desktop\Meus Documentos\Projetos GitHub\IAGarbageCollector\Web\obj\Debug\Web.pdb
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Web.dll.config
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Web.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Web.pdb
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Antlr3.Runtime.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Microsoft.Web.Infrastructure.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Model.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Newtonsoft.Json.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Net.Http.Formatting.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Helpers.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Http.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Http.WebHost.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Mvc.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Optimization.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Razor.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.WebPages.Deployment.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.WebPages.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.WebPages.Razor.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\WebGrease.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Model.pdb
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Helpers.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Mvc.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Optimization.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Razor.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.WebPages.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.WebPages.Deployment.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.WebPages.Razor.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Antlr3.Runtime.pdb
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\Newtonsoft.Json.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Net.Http.Formatting.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Http.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\bin\System.Web.Http.WebHost.xml
+C:\Projetos\GitHub\IAGarbageCollector\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
+C:\Projetos\GitHub\IAGarbageCollector\Web\obj\Debug\Web.dll
+C:\Projetos\GitHub\IAGarbageCollector\Web\obj\Debug\Web.pdb
