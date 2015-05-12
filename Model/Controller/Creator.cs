@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using Model.Agents;
 using Model.Interfaces;
 using Model.Utils;
@@ -15,9 +16,12 @@ namespace Model.Controller
         private List<TrashCan> trashCans;
         private List<Recharger> rechargers;
 
+        private StringBuilder log;
+
         public Creator(IModel model)
         {
             this.World = new World(model);
+            this.log = new StringBuilder();
         }
 
         public void Initialize()
@@ -48,9 +52,11 @@ namespace Model.Controller
 
         public void NextAge()
         {
+            log = new StringBuilder();
+
             foreach (var c in collectors)
             {
-                Debug.WriteLine("\nColetor: " + c.getName() + " em " + c.getPosition() + " Status: " + c.getStatus());
+                log.AppendLine("\nColetor: " + c.getName() + " em " + c.getPosition() + " Status: " + c.getStatus());
 
                 IBlock from = World.GetBlock(c.getPosition());
                 IBlock to = c.run(World.GetNeighbors(c.getPosition()));
@@ -58,34 +64,42 @@ namespace Model.Controller
                 if (to != null)
                 {
                     World.Move(c, from, to);
-                    Debug.WriteLine("* Moveu para " + to.getPosition());
+                    log.AppendLine("* Moveu para " + to.getPosition());
                 }
 
-                Debug.WriteLine("Status: " + c.ToString());
-                Debug.WriteLine(string.Empty);
+                log.AppendFormat(c.GetLog());
+
+                log.AppendLine("Status: " + c.ToString());
+                log.AppendLine(string.Empty);
             }
+        }
+
+        public string GetLog()
+        {
+            return log.ToString();
         }
 
         private void CreateEnvironment()
         {
-            Debug.WriteLine("Criou coletor em ");
+            log.AppendLine("Collector placed in:");
             for (int i = 0; i < World.Model.amountCollectors; i++)
             {
                 InsertCollector(i);
             }
 
-            Debug.WriteLine("Criou latas de lixo em ");
+            log.AppendLine("Trash cans placed in:");
             for (int i = 0; i < World.Model.amountTrashCans; i++)
             {
                 InsertTrashCan(i);
             }
 
-            Debug.WriteLine("Criou carregadores em ");
+            log.AppendLine("Rechargers placed in:");
             for (int i = 0; i < World.Model.amountRechargers; i++)
             {
                 InsertRechargers();
             }
 
+            log.AppendLine("Trash placed randonly.");
             InsertTrash();
         }
 
@@ -104,7 +118,7 @@ namespace Model.Controller
             World.Place(position, collector);
             collectors.Add(collector);
 
-            Debug.Write(position.ToString());
+            log.AppendLine("> " + collector.getName() + ": " + position.ToString());
         }
 
         private void InsertTrashCan(int index)
@@ -125,6 +139,8 @@ namespace Model.Controller
             World.Place(position, trashCan);
             trashCans.Add(trashCan);
 
+            log.AppendLine("> " + trashCan.getName() + ": " + position.ToString());
+
             foreach (var collector in collectors)
             {
                 collector.addTrashCan(trashCan.getColor(), position.getX(), position.getY());
@@ -141,10 +157,12 @@ namespace Model.Controller
                 return;
             }
 
-            var recharger = new Recharger();
+            var recharger = new Recharger("R0");
 
             World.Place(position, recharger);
             rechargers.Add(recharger);
+
+            log.AppendLine("> " + recharger.getName() + ": " + position.ToString());
 
             foreach (var collector in collectors)
             {

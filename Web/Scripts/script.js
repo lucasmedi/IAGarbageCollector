@@ -1,26 +1,31 @@
-//var interval;
+var interval;
 
-//function create() {
-//    document.getElementById('tableAgents').style.display = '';
-//    document.getElementById('nextBlockBtn').style.display = '';
-//    document.getElementById('nextBtn').style.display = '';
-//    createMatrix();
-//}
+$(function () {
+    $("#btnCreateWorld").click(function () {
+        $('form').submit();
+    });
 
-//function nextBlock() {
-//    var intervalParameter = document.getElementById('form:interval');
-//    document.getElementById('nextBlockBtn').style.display = 'none';
-//    document.getElementById('nextBtn').style.display = 'none';
-//    document.getElementById('stopIntervalBtn').style.display = '';
-//    interval = setInterval(function () {
-//        console.info('Chamando next...');
-//        next();
-//    }, intervalParameter.value);
-//}
+    $("#btnNextStep").click(function () {
+        $.post("Home/NextStep", null, (function (html) {
+            $("#world").html(html);
+        }).bind(this));
+    });
 
-//function stopInterval() {
-//    document.getElementById('nextBlockBtn').style.display = '';
-//    document.getElementById('nextBtn').style.display = '';
-//    document.getElementById('stopIntervalBtn').style.display = 'none';
-//    clearInterval(interval);
-//}
+    $("#btnStart").click(function () {
+        $('#btnNextStep').hide();
+        $('#btnStart').hide();
+        $('#btnStop').show();
+
+        interval = setInterval(function () {
+            nextStep();
+        }, $('#interval').val());
+    });
+
+    $("#btnStop").click(function () {
+        $('#btnNextStep').show();
+        $('#btnStart').show();
+        $('#btnStop').hide();
+
+        clearInterval(interval);
+    });
+});

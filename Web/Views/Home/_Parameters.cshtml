@@ -1,7 +1,7 @@
-﻿
-@model Web.Models.ModelViewModel
+﻿@model Web.Models.ModelViewModel
 
-<form id="form">
+@using (Html.BeginForm("Index"))
+{
     <div class="fields">
         <div>
             @Html.LabelFor(o => o.amountCollectors)
@@ -36,4 +36,4 @@
             <input type="text" name="interval" id="interval" value="1000" />
         </div>
     </div>
-</form>
+}

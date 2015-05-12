@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using Model.Interfaces;
 using Model.Utils;
 
@@ -42,6 +43,8 @@ namespace Model.Agents
         private TrashType trashType;
         private List<IBlock> possibleBlocks;
         private List<IBlock> excludedBlocks;
+
+        private StringBuilder log;
 
         /* CONSTRUCTOR */
         public Collector(string name, int batteryCapacity, int trashCapacity, IBlock current)
@@ -141,15 +144,17 @@ namespace Model.Agents
          */
         public IBlock run(List<IBlock> neighbors)
         {
+            log = new StringBuilder();
+
             if ((neighbors == null) || (neighbors.Count == 0))
             {
-                Debug.WriteLine("Sem espaço para andar. :(");
+                log.AppendLine("Sem espaço para andar. :(");
                 return null;
             }
 
             if (batteryCharge <= 0)
             {
-                Debug.WriteLine("Acabou a bateria. :(");
+                log.AppendLine("Acabou a bateria. :(");
                 return null;
             }
 
@@ -181,7 +186,7 @@ namespace Model.Agents
                 && batteryLow())
             {
                 status = CollectorStatus.LOOKINGRECHARGER;
-                Debug.WriteLine("* Precisa carregar, procurar por carregador");
+                log.AppendLine("* Precisa carregar, procurar por carregador");
                 return;
             }
 
@@ -193,7 +198,7 @@ namespace Model.Agents
             if (hasFullTrash())
             {
                 status = CollectorStatus.LOOKINGTRASHCAN;
-                Debug.WriteLine("* Precisa esvaziar, procurar por lixeira");
+                log.AppendLine("* Precisa esvaziar, procurar por lixeira");
                 return;
             }
 
@@ -219,38 +224,38 @@ namespace Model.Agents
                 case CollectorStatus.LOOKINGRECHARGER:
                     objective = Position.getPseudoNearest(currentBlock.getPosition(), rechargers);
                     status = CollectorStatus.WALKINGRECHARGER;
-                    Debug.WriteLine("* Definiu ir para o carregador em " + objective.ToString());
+                    log.AppendLine("* Definiu ir para o carregador em " + objective.ToString());
                     break;
                 case CollectorStatus.WALKINGRECHARGER:
-                    Debug.WriteLine("* Indo para o carregador em " + objective.ToString());
+                    log.AppendLine("* Indo para o carregador em " + objective.ToString());
                     break;
                 case CollectorStatus.LOOKINGTRASHCAN:
                     objective = getNearestTrashCan();
                     status = CollectorStatus.WALKINGTRASHCAN;
-                    Debug.WriteLine("* Definiu ir para lixeira em " + objective.ToString());
+                    log.AppendLine("* Definiu ir para lixeira em " + objective.ToString());
                     break;
                 case CollectorStatus.WALKINGTRASHCAN:
-                    Debug.WriteLine("* Indo para a lixeira em " + objective.ToString());
+                    log.AppendLine("* Indo para a lixeira em " + objective.ToString());
                     break;
                 case CollectorStatus.LOOKINGTRASH:
                     objective = Position.getPseudoNearest(currentBlock.getPosition(), getTrashFound());
                     status = CollectorStatus.WALKINGTRASH;
-                    Debug.WriteLine("* Achou lixo em " + objective.ToString());
+                    log.AppendLine("* Achou lixo em " + objective.ToString());
                     break;
                 case CollectorStatus.WALKINGTRASH:
-                    Debug.WriteLine("* Indo para o lixo em " + objective.ToString());
+                    log.AppendLine("* Indo para o lixo em " + objective.ToString());
                     break;
                 case CollectorStatus.RECHARGING:
-                    Debug.WriteLine("* Recarregando...");
+                    log.AppendLine("* Recarregando...");
                     break;
                 case CollectorStatus.EMPTYING:
-                    Debug.WriteLine("* Esvaziando...");
+                    log.AppendLine("* Esvaziando...");
                     break;
                 case CollectorStatus.WANDER:
                 default:
                     objective = wander().getPosition();
                     status = CollectorStatus.WANDER;
-                    Debug.WriteLine("* Nada encontrado, então caminhar");
+                    log.AppendLine("* Nada encontrado, então caminhar");
                     break;
             }
         }
@@ -351,7 +356,7 @@ namespace Model.Agents
 
             if (trashCan.isFull())
             {
-                Debug.WriteLine(trashCan.getName() + " está cheia!");
+                log.AppendLine(trashCan.getName() + " está cheia!");
                 return;
             }
 
@@ -426,7 +431,7 @@ namespace Model.Agents
             {
                 if (recharger.isBusy())
                 {
-                    Debug.WriteLine("* O carregador está ocupado :(.");
+                    log.AppendLine("* O carregador está ocupado :(.");
                     return;
                 }
                 else
@@ -440,13 +445,13 @@ namespace Model.Agents
             if (maxBatteryCapacity > batteryCharge)
             {
                 batteryCharge++;
-                Debug.WriteLine("* Carregando: bateria: " + batteryCharge + " >> " + maxBatteryCapacity);
+                log.AppendLine("* Carregando: bateria: " + batteryCharge + " >> " + maxBatteryCapacity);
             }
             else
             {
                 recharger.removeCollector(this);
                 status = CollectorStatus.WANDER;
-                Debug.WriteLine("* Carregou jóia. :)");
+                log.AppendLine("* Carregou jóia. :)");
             }
         }
 
@@ -471,7 +476,7 @@ namespace Model.Agents
                     break;
             }
 
-            Debug.WriteLine("* Pegou lixo " + trash.ToString());
+            log.AppendLine("* Pegou lixo " + trash.ToString());
 
             status = CollectorStatus.WANDER;
         }
@@ -486,13 +491,13 @@ namespace Model.Agents
             {
                 way = Way.UPLEFT;
                 direction = Direction.LEFT;
-                Debug.WriteLine("* inverteu o caminho para UPLEFT");
+                log.AppendLine("* inverteu o caminho para UPLEFT");
             }
             else if (way == Way.UPLEFT && this.isUpLeftEnd())
             {
                 way = Way.DOWNRIGHT;
                 direction = Direction.RIGHT;
-                Debug.WriteLine("* inverteu o caminho para DOWNRIGHT");
+                log.AppendLine("* inverteu o caminho para DOWNRIGHT");
             }
 
             if (way == Way.DOWNRIGHT)
@@ -921,6 +926,11 @@ namespace Model.Agents
         public CollectorStatus getStatus()
         {
             return status;
+        }
+
+        public string GetLog()
+        {
+            return log.ToString();
         }
 
         public override string ToString()

@@ -9,8 +9,8 @@ namespace Model.Agents
         private List<Collector> collectors;
         private static int capacity = 2;
 
-        public Recharger()
-            : base(Recharger.icon)
+        public Recharger(string name)
+            : base(name, Recharger.icon)
         {
             collectors = new List<Collector>();
         }

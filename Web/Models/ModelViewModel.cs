@@ -36,9 +36,9 @@ namespace Web.Models
             this.amountCollectors = 1;
             this.amountTrashCans = 4;
             this.amountRechargers = 1;
-            this.maxTrashCanCapacity = 5;
-            this.maxTrashCapacity = 3;
-            this.maxBatteryCapacity = 10;
+            this.maxTrashCanCapacity = 10;
+            this.maxTrashCapacity = 5;
+            this.maxBatteryCapacity = this.size * 10;
         }
     }
 }
