@@ -17,7 +17,9 @@ $(function () {
         $('#btnStop').show();
 
         interval = setInterval(function () {
-            nextStep();
+            $.post("Home/NextStep", null, (function (html) {
+                $("#world").html(html);
+            }).bind(this));
         }, $('#interval').val());
     });
 
