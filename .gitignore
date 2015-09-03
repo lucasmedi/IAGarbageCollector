@@ -9,3 +9,10 @@ obj/
 *.suo
 *.dll
 *.pdb
+*.dll
+*.pdb
+*.cache
+Model/obj/Debug/Model.csproj.FileListAbsolute.txt
+*.dll
+Web/bin/Model.pdb
+*.cache

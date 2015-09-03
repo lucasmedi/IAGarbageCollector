@@ -46,11 +46,15 @@ namespace Model.Controller
             CreateEnvironment();
         }
 
-        public void NextAge()
+        public IList<IMove> NextAge()
         {
+            var result = new List<IMove>();
+
             foreach (var c in collectors)
             {
-                Debug.WriteLine("\nColetor: " + c.getName() + " em " + c.getPosition() + " Status: " + c.getStatus());
+                var move = new Move();
+
+                move.Log += "\nColetor: " + c.getName() + " em " + c.getPosition() + " Status: " + c.getStatus();
 
                 IBlock from = World.GetBlock(c.getPosition());
                 IBlock to = c.run(World.GetNeighbors(c.getPosition()));
@@ -58,12 +62,18 @@ namespace Model.Controller
                 if (to != null)
                 {
                     World.Move(c, from, to);
-                    Debug.WriteLine("* Moveu para " + to.getPosition());
+                    move.Log += "\n* Moveu para " + to.getPosition();
                 }
 
-                Debug.WriteLine("Status: " + c.ToString());
-                Debug.WriteLine(string.Empty);
+                move.Log +=  "\nStatus: " + c.ToString();
+
+                move.From = from;
+                move.To = to;
+
+                result.Add(move);
             }
+
+            return result;
         }
 
         private void CreateEnvironment()

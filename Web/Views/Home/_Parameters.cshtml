@@ -3,7 +3,7 @@
 @using (Html.BeginForm("Index"))
 {
     <div class="fields">
-        <div>
+        <div style="float: left">
             @Html.LabelFor(o => o.amountCollectors)
             @Html.TextBoxFor(o => o.amountCollectors)
 
@@ -16,8 +16,7 @@
             @Html.TextBoxFor(o => o.amountRechargers)
         </div>
 
-        <br />
-        <div>
+        <div style="float: left">
             @Html.LabelFor(o => o.maxTrashCanCapacity)
             @Html.TextBoxFor(o => o.maxTrashCanCapacity)
 
@@ -30,8 +29,7 @@
             @Html.TextBoxFor(o => o.maxBatteryCapacity)
         </div>
 
-        <br />
-        <div>
+        <div style="float: left">
             <label for="interval">Time interval (ms)</label>
             <input type="text" name="interval" id="interval" value="1000" />
         </div>

@@ -32,12 +32,5 @@ namespace Web.Controllers
 
             return View();
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your Contact page.";
-
-            return View();
-        }
     }
 }

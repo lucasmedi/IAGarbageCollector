@@ -39,10 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\Move.cs" />
     <Compile Include="Interfaces\IAgent.cs" />
     <Compile Include="Interfaces\IBlock.cs" />
     <Compile Include="Interfaces\IMatrix.cs" />
     <Compile Include="Interfaces\IModel.cs" />
+    <Compile Include="Interfaces\IMove.cs" />
     <Compile Include="Interfaces\IPosition.cs" />
     <Compile Include="Interfaces\ITrash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
