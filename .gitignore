@@ -7,6 +7,5 @@ Thumbs.db
 *.dll
 *.pdb
 *.cache
-[Bb]in*/
-[Dd]ebug*/
-obj/
+Web/bin/
+Web/obj/
